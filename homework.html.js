@@ -83,29 +83,8 @@ let num1Ele = document.getElementById('num1');
 let num2Ele = document.getElementById('num2');
 let sumEle = document.getElementById('sum');
 
-num1Ele.addEventListener('input', () => {
-    let num1 = Number(num1Ele.value);
-    let num2 = Number(num2Ele.value);
-    if (!num1 || !num2) {
-        InnerText = 'Cannot add';
-    } else {
-        let sum = num1 + num2;
-        InnerText = num1Ele.value + ' + ' + num2Ele.value + ' = ' + sum;
-    }
-    sumEle.innerText = InnerText;
-});
-
-num2Ele.addEventListener('input', () => {
-    let num1 = Number(num1Ele.value);
-    let num2 = Number(num2Ele.value);
-    if (!num1 || !num2) {
-        InnerText = 'Cannot add';
-    } else {
-        let sum = num1 + num2;
-        InnerText = num1Ele.value + ' + ' + num2Ele.value + ' = ' + sum;
-    }
-    sumEle.innerText = InnerText;
-});
+num1Ele.addEventListener('input', upDateSumInnerText);
+num2Ele.addEventListener('input', upDateSumInnerText);
 
 function upDateSumInnerText() {
     let num1 = Number(num1Ele.value);
@@ -151,7 +130,6 @@ function getCheckedColorRadio() {
 
 function getCheckedColorText() {
     let checkedColorRadio = getCheckedColorRadio();
-
     return checkedColorRadio.nextSibling ? checkedColorRadio.nextSibling.textContent : 'Anything';
     // Alternate guard operator verion. Will return null instead of 'Anything':
     // return checkedColorRadio.nextSibling && checkedColorRadio.nextSibling.textContent; 
@@ -211,6 +189,7 @@ function padZero(i) {
     if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
     return i;
 }
+startTime();
 
 // 11. Delay
 // Regarding this element:
