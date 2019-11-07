@@ -94,6 +94,7 @@ num1Ele.addEventListener('input', () => {
     }
     sumEle.innerText = InnerText;
 });
+
 num2Ele.addEventListener('input', () => {
     let num1 = Number(num1Ele.value);
     let num2 = Number(num2Ele.value);
@@ -138,14 +139,8 @@ skillMenu.addEventListener('change', () => {
 let favColorRadios = document.querySelectorAll('input[name="favoriteColor"]');
 let oldColor = getCheckedColorText();
 
-function getCheckedColorText() {
-    let checkedColorRadio = getCheckedColorRadio();
-    return checkedColorRadio.nextSibling.textContent;
-}
-
-
 function getCheckedColorRadio() {
-    let checkedColorRadio;
+    let checkedColorRadio = document.createElement('input');
     favColorRadios.forEach((colorRadio) => {
         if (colorRadio.checked) {
             checkedColorRadio = colorRadio;
@@ -154,6 +149,13 @@ function getCheckedColorRadio() {
     return checkedColorRadio;
 }
 
+function getCheckedColorText() {
+    let checkedColorRadio = getCheckedColorRadio();
+
+    return checkedColorRadio.nextSibling ? checkedColorRadio.nextSibling.textContent : 'Anything';
+    // Alternate guard operator verion. Will return null instead of 'Anything':
+    // return checkedColorRadio.nextSibling && checkedColorRadio.nextSibling.textContent; 
+}
 
 favColorRadios.forEach((colorRadio) => {
     colorRadio.addEventListener('change', () => {
@@ -171,15 +173,6 @@ favColorRadios.forEach((colorRadio) => {
         oldColor = newColor;
     })
 });
-
-//////////////////////////Why this won't work????????????//////////
-// firstForm.addEventListener('change', alertColorChange());
-// function alertColorChange() {
-//     newColor = getCheckedColor();
-//     alert(`So you like ${newColor} more than ${oldColor} now?`);
-//     oldColor = newColor;
-// }
-////////////////////////////////////////////////////////
 
 // 9. Show/Hide Event
 // When user hovers over an employees name:
