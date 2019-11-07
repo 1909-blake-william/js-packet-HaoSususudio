@@ -28,37 +28,101 @@ console.log(fib(8));
 // Define function: bubbleSort(numArray)
 // Use the bubble sort algorithm to sort the array.
 // Return the sorted array.
-
+function bubbleSort(numArray) {
+    for (i = 0; i < numArray.length; i++) {
+        for (j = 0; j < numArray.length - i; j++) {
+            if (numArray[j] > numArray[j + 1]) {
+                tempNum = numArray[j];
+                numArray[j] = numArray[j + 1];
+                numArray[j + 1] = tempNum;
+                console.log(numArray)
+            }
+        }
+    }
+    return numArray;
+}
+console.log(bubbleSort([5, 4, 3, 2, 1]));
 
 // 3. Reverse String
 // Define function: reverseStr(someStr)
 // Reverse and return the String.
+function reverseStr(someStr) {
+    outStr = '';
+    for (index = someStr.length - 1; index >= 0; index -= 1) {
+        outStr += someStr.charAt(index);
+    }
+    return outStr;
+}
+console.log(reverseStr('yessir'));
 
-
+let reverseStrArrow = (someStr) => {
+    outStr = '';
+    for (index = someStr.length - 1; index >= 0; index -= 1) {
+        outStr += someStr.charAt(index);
+    }
+    return outStr;
+}
+console.log(reverseStrArrow('nosir'));
 
 // 4. Factorial
 // Define function: factorial(someNum)
 // Use recursion to compute and return the factorial of someNum.
-
-
+function factorial(someNum) {
+    if (someNum < 0) {
+        return NaN;
+        console.log('n must be a natural number');
+    } else if (someNum === 0) {
+        return 1;
+    } else if (someNum === 1) {
+        return 1;
+    } else {
+        return someNum * factorial(someNum - 1);
+    }
+}
+console.log(factorial(5));
 
 // 5. Substring
 // Define function substring(someStr, length, offset)
 // Return the substring contained between offset and (offset + length) inclusively.
 // If incorrect input is entered, use the alert function and describe why the input was incorrect.
-
-
+function substring(someStr, length, offset) {
+    if (length < 0 || offset < 0) {
+        alert('Both length and offset must be positive.')
+    } else if (length > someStr.length || offset > someStr.length) {
+        alert('Both length and offset must be sorter than the length of input string.')
+    } else if (offset + length > someStr.length) {
+        alert('Sum of length and offset must be sorter than the length of input string.')
+    }
+    else {
+        return someStr.substring(offset, offset + length);
+    }
+}
+let str = "Hello world!";
+console.log(substring(str, 5, 6));
 
 // 6. Even Number
 // Define function: isEven(someNum)
 // Return true if even, false if odd.
 // Do not use % operator.
-
+function isEven(someNum) {
+    quotient = Math.floor(someNum / 2);
+    modulus = someNum - quotient * 2;
+    return modulus === 0 ? true : false;
+}
+console.log(isEven(4))
 
 // 7. Palindrome
 // Define function isPalindrome(someStr)
 // Return true if someStr is a palindrome, otherwise return false
-
+function isPalindrome(someStr) {
+    for (index = 0; index < Math.ceil(someStr.length / 2); index += 1) {
+        if (someStr.charAt(index) !== someStr.charAt(someStr.length - 1 - index)) {
+            return false;
+        }
+    }
+    return true;
+}
+console.log(isPalindrome('asdfgsa'));
 
 // 8. Shapes
 // Define function: printShape(shape, height, character)
@@ -86,7 +150,24 @@ console.log(fib(8));
 // 9. Object literal
 // Define function traverseObject(someObj)
 // Print every property and it's value.
-
+let a = {
+    id: 1,
+    name: 'Zord',
+    hp: 500,
+    level: 5,
+    type: {
+        id: 5,
+        name: 'Steel'
+    },
+    trainer: {
+        id: 1,
+        name: 'tommy'
+    }
+}
+function traverseObject(someObj) {
+    console.log(someObj);
+}
+traverseObject(a);
 
 // 10. Delete Element
 // Define function deleteElement(someArr)

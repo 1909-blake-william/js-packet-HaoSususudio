@@ -1,17 +1,18 @@
-function reverseStr(someStr) {
-    outStr = '';
-    for (index = someStr.length - 1; index >= 0; index -= 1) {
-        outStr += someStr.charAt(index);
+let a = {
+    id: 1,
+    name: 'Zord',
+    hp: 500,
+    level: 5,
+    type: {
+        id: 5,
+        name: 'Steel'
+    },
+    trainer: {
+        id: 1,
+        name: 'tommy'
     }
-    return outStr;
 }
-console.log(reverseStr('yessir'));
-
-let reverseStrArrow = (someStr) => {
-    outStr = '';
-    for (index = someStr.length - 1; index >= 0; index -= 1) {
-        outStr += someStr.charAt(index);
-    }
-    return outStr;
+function traverseObject(someObj) {
+    console.log(someObj);
 }
-console.log(reverseStrArrow('nosir'));
+traverseObject(a);
