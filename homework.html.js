@@ -5,7 +5,7 @@
 function getUSA() {
     return document.querySelector('[data-customAttr="USA"]');
 }
-//console.log(getUSA().innerText);
+// console.log(getUSA().innerText);
 
 // 2. Sales
 // Define function getPeopleInSales()
@@ -21,7 +21,7 @@ function getPeopleInSales() {
     }
     return allPeopleInSales;
 }
-//console.log(getPeopleInSales());
+// console.log(getPeopleInSales());
 
 // 3. Click Here
 // Define function getAnchorChildren()
@@ -52,6 +52,7 @@ function getHobbies() {
     return selectedHobbies;
 }
 // getHobbies()
+
 // 5. Custom Attribute
 // Define function getCustomAttribute()
 // Find all elements with "data-customAttr" attribute
@@ -78,13 +79,32 @@ function getCustomAttribute() {
 // Put the sum in the <span> element.
 // If values cannot be added, put "Cannot add" in the <span> element
 
-// let num22 = document.getElementById('num2');
 let num1Ele = document.getElementById('num1');
 let num2Ele = document.getElementById('num2');
 let sumEle = document.getElementById('sum');
 
-num1Ele.addEventListener('input', upDateSumInnerText())
-num2Ele.addEventListener('input', upDateSumInnerText());
+num1Ele.addEventListener('input', () => {
+    let num1 = Number(num1Ele.value);
+    let num2 = Number(num2Ele.value);
+    if (!num1 || !num2) {
+        InnerText = 'Cannot add';
+    } else {
+        let sum = num1 + num2;
+        InnerText = num1Ele.value + ' + ' + num2Ele.value + ' = ' + sum;
+    }
+    sumEle.innerText = InnerText;
+});
+num2Ele.addEventListener('input', () => {
+    let num1 = Number(num1Ele.value);
+    let num2 = Number(num2Ele.value);
+    if (!num1 || !num2) {
+        InnerText = 'Cannot add';
+    } else {
+        let sum = num1 + num2;
+        InnerText = num1Ele.value + ' + ' + num2Ele.value + ' = ' + sum;
+    }
+    sumEle.innerText = InnerText;
+});
 
 function upDateSumInnerText() {
     let num1 = Number(num1Ele.value);
@@ -118,6 +138,12 @@ skillMenu.addEventListener('change', () => {
 let favColorRadios = document.querySelectorAll('input[name="favoriteColor"]');
 let oldColor = getCheckedColorText();
 
+function getCheckedColorText() {
+    let checkedColorRadio = getCheckedColorRadio();
+    return checkedColorRadio.nextSibling.textContent;
+}
+
+
 function getCheckedColorRadio() {
     let checkedColorRadio;
     favColorRadios.forEach((colorRadio) => {
@@ -128,10 +154,6 @@ function getCheckedColorRadio() {
     return checkedColorRadio;
 }
 
-function getCheckedColorText() {
-    let checkedColorRadio = getCheckedColorRadio();
-    return checkedColorRadio.nextSibling.textContent;
-}
 
 favColorRadios.forEach((colorRadio) => {
     colorRadio.addEventListener('change', () => {
@@ -143,7 +165,6 @@ favColorRadios.forEach((colorRadio) => {
             let replacementNode = document.createElement('span');
             let colorText = colorR.nextSibling.textContent;
             replacementNode.innerHTML = `<span style="background-color:${newColorAttr}">${colorText}</span>`;
-            console.log(replacementNode.innerHTML);
             colorR.nextSibling.replaceWith(replacementNode);
         })
         alert(`So you like ${newColor} more than ${oldColor} now?`);
@@ -164,14 +185,39 @@ favColorRadios.forEach((colorRadio) => {
 // When user hovers over an employees name:
 // 	Hide the name if shown.
 // 	Show the name if hidden.
-
+let allEmployees = document.querySelectorAll('td.empName');
+allEmployees.forEach((employee) => {
+    employee.addEventListener('mouseover', () => {
+        if (employee.style.color === 'white') {
+            employee.style.color = 'black';
+        } else {
+            employee.style.color = 'white'
+        }
+    })
+});
 
 // 10. Current Time
 // Regarding this element:
 // 	<h5 id="currentTime"></h5>
 // Show the current time in this element in this format: 9:05:23 AM
 // The time should be accurate to the second without having to reload the page.
-
+function startTime() {
+    var today = new Date();
+    var hour = today.getHours();
+    var minute = today.getMinutes();
+    var second = today.getSeconds();
+    var ampm = hour >= 12 ? 'PM' : 'AM';
+    hour = padZero(hour);
+    minute = padZero(minute);
+    second = padZero(second);
+    document.getElementById('currentTime').innerHTML =
+        hour + ":" + minute + ":" + second + ' ' + ampm;
+    var t = setTimeout(startTime, 500);
+}
+function padZero(i) {
+    if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+    return i;
+}
 
 // 11. Delay
 // Regarding this element:
