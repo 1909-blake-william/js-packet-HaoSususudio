@@ -115,47 +115,41 @@ skillMenu.addEventListener('change', () => {
 // In this example, green is the new value and blue is the old value.
 // Make the background color (of all favoriteColor radio buttons) the newly selected favoriteColor
 
-// let favColorRadios = document.querySelectorAll('input[name="favoriteColor"]');
-// let oldColor = getCheckedColorText();
-// let newColor = '';
-
-
-// function getCheckedColor() {
-//     let checkedColor = '';
-//     favColorRadios.forEach((colorRadio) => {
-//         if (colorRadio.checked) {
-//             checkedColor = colorRadio.nextSibling.textContent;
-//         }
-//     })
-//     return checkedColor;
-// }
+let favColorRadios = document.querySelectorAll('input[name="favoriteColor"]');
+let oldColor = getCheckedColorText();
 
 function getCheckedColorRadio() {
+    let checkedColorRadio;
     favColorRadios.forEach((colorRadio) => {
         if (colorRadio.checked) {
-            return colorRadio;
+            checkedColorRadio = colorRadio;
         }
     })
+    return checkedColorRadio;
 }
-console.count(getCheckedColorRadio());
 
-// function getCheckedColorText() {
-//     let checkedColorRadio = getCheckedColorRadio();
-//     return checkedColorRadio.nextSibling.textContent;
-// }
+function getCheckedColorText() {
+    let checkedColorRadio = getCheckedColorRadio();
+    return checkedColorRadio.nextSibling.textContent;
+}
 
+favColorRadios.forEach((colorRadio) => {
+    colorRadio.addEventListener('change', () => {
+        let newColorRadio = getCheckedColorRadio();
+        let newColor = getCheckedColorText();
+        let newColorAttr = newColorRadio.value;
 
-
-// favColorRadios.forEach((colorRadio) => {
-//     colorRadio.addEventListener('change', () => {
-//         newColor = getCheckedColorText();
-//         alert(`So you like ${newColor} more than ${oldColor} now?`);
-//         oldColor = newColor;
-//     })
-// });
-
-
-
+        favColorRadios.forEach((colorR) => {
+            let replacementNode = document.createElement('span');
+            let colorText = colorR.nextSibling.textContent;
+            replacementNode.innerHTML = `<span style="background-color:${newColorAttr}">${colorText}</span>`;
+            console.log(replacementNode.innerHTML);
+            colorR.nextSibling.replaceWith(replacementNode);
+        })
+        alert(`So you like ${newColor} more than ${oldColor} now?`);
+        oldColor = newColor;
+    })
+});
 
 //////////////////////////Why this won't work????????????//////////
 // firstForm.addEventListener('change', alertColorChange());
