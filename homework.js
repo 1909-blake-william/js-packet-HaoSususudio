@@ -109,7 +109,7 @@ function isEven(someNum) {
     modulus = someNum - quotient * 2;
     return modulus === 0 ? true : false;
 }
-console.log(isEven(4))
+console.log(isEven(4));
 
 // 7. Palindrome
 // Define function isPalindrome(someStr)
@@ -128,7 +128,8 @@ console.log(isPalindrome('asdfgsa'));
 // Define function: printShape(shape, height, character)
 // shape is a String and is either "Square", "Triangle", "Diamond".
 // height is a Number and is the height of the shape. Assume the number is odd.
-// character is a String that represents the contents of the shape. Assume this String contains just one character.
+// character is a String that represents the contents of the shape. 
+// Assume this String contains just one character.
 // Use a switch statement to determine which shape was passed in.
 // Use the console.log function to print the desired shape.
 // Example for printShape("Square", 3, "%");
@@ -145,7 +146,74 @@ console.log(isPalindrome('asdfgsa'));
 // *****
 //  ***
 //   *
+function printShape(shape, num, char) {
+    if (num % 2 === 0 || num <= 0) {
+        console.log(`${num} is not an odd natural number.`);
+        return;
+    }
+    if (char.length !== 1) {
+        console.log(`${char} must be a single character.`);
+        return;
+    }
+    switch (shape) {
+        case "Square": {
+            printSquare(num, char);
+            break;
+        }
+        case "Triangle": {
+            printTriangle(num, char);
+            break;
+        }
+        case "Diamond": {
+            printDiamond(num, char);
+            break;
+        }
+        default: {
+            console.log('Shape must be "Square", "Triangle", or "Diamond".')
+            break;
+        }
+    }
+}
 
+function printSquare(num, char) {
+    for (i = 0; i < num; i++) {
+        let row = '';
+        for (j = 0; j < num; j++) {
+            row += char;
+        }
+        console.log(row);
+    }
+}
+function printTriangle(num, char) {
+    for (i = 0; i < num; i++) {
+        let row = '';
+        for (j = 0; j < i + 1; j++) {
+            row += char;
+        }
+        console.log(row);
+    }
+}
+
+function printDiamond(num, char) {
+    let midPoint = Math.ceil(num / 2);
+    for (i = 1; i <= num; i++) {
+        let row = '';
+        for (j = 1; j <= num; j++) {
+            if (Math.abs(midPoint - j) < midPoint - Math.abs(midPoint - i)) {
+                row += char;
+            } else {
+                row += ' ';
+            }
+        }
+        console.log(row);
+    }
+}
+printShape("Square", 3, '*');
+printShape("Triangle", 5, '*');
+printShape("Diamond", 7, '*');
+printShape("UndefinedShape", 7, '*');
+printShape("Diamond", 8, '*');
+printShape("Diamond", 7, '**');
 
 // 9. Object literal
 // Define function traverseObject(someObj)
@@ -176,6 +244,15 @@ traverseObject(a);
 // Print length
 // The lengths should be the same.
 
+let testArr = [1, 2, 3, 4, 5, 6]
+deleteElement(testArr);
+function deleteElement(someArr) {
+    console.log(someArr);
+    console.log('Array length is: ' + someArr.length);
+    delete someArr[2];
+    console.log(someArr);
+    console.log('Array length is: ' + someArr.length);
+}
 
 // 11. Splice Element
 // Define function spliceElement(someArr)
@@ -183,16 +260,38 @@ traverseObject(a);
 // Splice the third element in the array.
 // Print length
 // The lengths should be one less than the original length.
-
+let testArr2 = [1, 2, 3, 4, 5, 6];
+spliceElement(testArr2);
+function spliceElement(someArr) {
+    console.log(someArr);
+    console.log('Array length is: ' + someArr.length);
+    someArr.splice(2, 1);
+    console.log(someArr);
+    console.log('Array length is: ' + someArr.length);
+}
 
 // 12. Defining an object using a constructor
 // Define a function Person(name, age)
 // The following line should set a Person object to the variable john:
 // 	let john = new Person("John", 30);
-
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+let john = new Person("John", 30);
+console.log(john);
 
 // 13. Defining an object using an object literal
 // Define function getPerson(name, age)
 // The following line should set a Person object to the variable john:
 // 	let john = getPerson("John", 30);
+function getPerson(name, age) {
+    let person = {
+        personName: name,
+        personAge: age
+    };
+    return person;
+}
+let johnJr = getPerson("John", 30);
+console.log(johnJr);
 
