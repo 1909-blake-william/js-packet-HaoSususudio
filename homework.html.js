@@ -5,7 +5,8 @@
 function getUSA() {
     return document.querySelector('[data-customAttr="USA"]');
 }
-// console.log(getUSA().innerText);
+console.log('Answer to Q1. USA:');
+console.log(getUSA().innerText);
 
 // 2. Sales
 // Define function getPeopleInSales()
@@ -21,7 +22,8 @@ function getPeopleInSales() {
     }
     return allPeopleInSales;
 }
-// console.log(getPeopleInSales());
+console.log('Answer to Q2. Sales:');
+console.log(getPeopleInSales());
 
 // 3. Click Here
 // Define function getAnchorChildren()
@@ -35,7 +37,8 @@ function getAnchorChildren() {
     }
     return spansWithinAnAnchor;
 }
-// getAnchorChildren();
+console.log('Answer to Q3. Click Here:');
+getAnchorChildren();
 
 // 4. Hobbies
 // Define function getHobbies()
@@ -51,7 +54,8 @@ function getHobbies() {
     )
     return selectedHobbies;
 }
-// getHobbies()
+console.log('Answer to Q4. Hobbies:');
+getHobbies();
 
 // 5. Custom Attribute
 // Define function getCustomAttribute()
@@ -67,7 +71,8 @@ function getCustomAttribute() {
         }
     )
 }
-// getCustomAttribute()
+console.log('Answer to Q5. Custom Attribute:');
+getCustomAttribute()
 
 // 6. Sum Event
 // Regarding these elements:
@@ -118,6 +123,17 @@ skillMenu.addEventListener('change', () => {
 let favColorRadios = document.querySelectorAll('input[name="favoriteColor"]');
 let oldColor = getCheckedColorText();
 
+favColorRadios.forEach((colorRadio) => {
+    colorRadio.addEventListener('change', () => {
+        let newColorRadio = getCheckedColorRadio();
+        let newColor = getCheckedColorText();
+        let newColorAttr = newColorRadio.value;
+        favColorRadios.forEach((ele) => changeRadioBackgroundColor(ele, newColorAttr));
+        alert(`So you like ${newColor} more than ${oldColor} now?`);
+        oldColor = newColor;
+    })
+});
+
 function getCheckedColorRadio() {
     let checkedColorRadio = document.createElement('input');
     favColorRadios.forEach((colorRadio) => {
@@ -135,22 +151,12 @@ function getCheckedColorText() {
     // return checkedColorRadio.nextSibling && checkedColorRadio.nextSibling.textContent; 
 }
 
-favColorRadios.forEach((colorRadio) => {
-    colorRadio.addEventListener('change', () => {
-        let newColorRadio = getCheckedColorRadio();
-        let newColor = getCheckedColorText();
-        let newColorAttr = newColorRadio.value;
-
-        favColorRadios.forEach((colorR) => {
-            let replacementNode = document.createElement('span');
-            let colorText = colorR.nextSibling.textContent;
-            replacementNode.innerHTML = `<span style="background-color:${newColorAttr}">${colorText}</span>`;
-            colorR.nextSibling.replaceWith(replacementNode);
-        })
-        alert(`So you like ${newColor} more than ${oldColor} now?`);
-        oldColor = newColor;
-    })
-});
+function changeRadioBackgroundColor(colorRadio, newColorAttribute) {
+    let replacementNode = document.createElement('span');
+    let colorText = colorRadio.nextSibling.textContent;
+    replacementNode.innerHTML = `<span style="background-color:${newColorAttribute}">${colorText}</span>`;
+    colorRadio.nextSibling.replaceWith(replacementNode);
+}
 
 // 9. Show/Hide Event
 // When user hovers over an employees name:
@@ -183,7 +189,7 @@ function startTime() {
     second = padZero(second);
     document.getElementById('currentTime').innerHTML =
         hour + ":" + minute + ":" + second + ' ' + ampm;
-    var t = setTimeout(startTime, 500);
+    setTimeout(startTime, 500);
 }
 function padZero(i) {
     if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
@@ -195,9 +201,37 @@ startTime();
 // Regarding this element:
 // 	<p id="helloWorld">Hello, World!</p>
 // Three seconds after a user clicks on this element, change the text to a random color.
+let helloWorld = document.getElementById('helloWorld');
+helloWorld.addEventListener('click', () => {
+    setTimeout(changeHelloWorldTextColor, 3000);
+});
 
+function changeHelloWorldTextColor() {
+    helloWorld = document.getElementById('helloWorld');
+    helloWorld.style.color = `rgb(${rdn0To255()}, ${rdn0To255()}, ${rdn0To255()})`;
+}
+
+function rdn0To255() {
+    return Math.floor(Math.random() * 256);
+}
 
 // 12. Walk the DOM
 // Define function walkTheDOM(node, func)
 // This function should traverse every node in the DOM. Use recursion.
 // On each node, call func(node).
+// function walkTheDOM(node, func) {
+function walkTheDOM(node, func) {
+    func(node);
+    node = node.firstChild;
+    while (node) {
+        walkTheDOM(node, func);
+        node = node.nextSibling;
+    }
+}
+
+console.log('Answer to Q12. Walk the DOM:');
+walkTheDOM(document.documentElement, function (node) {
+    if (node.nodeName) {
+        console.log(node.nodeName);
+    }
+});
